@@ -1,0 +1,2 @@
+# stampaway
+npm install firebase
