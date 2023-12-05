@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getApps, initializeApp } from "firebase/app";
 
 // Importerer de forskellige skærme fra separate filer
+import { AuthProvider, useAuth } from './AuthenticationService';
 import HomeScreen from './components/HomeScreen';
 import CameraScreen from './components/CameraScreen';
 import MapScreen from './components/MapScreen';
@@ -15,6 +16,11 @@ import CompanyDetailsScreen from './components/companies/CompanyDetailsScreen';
 
 import CreateCouponScreen from './components/coupons/CreateCouponScreen';
 import CouponsScreen from './components/coupons/CouponsScreen';
+
+import LoginScreen from './components/user/LoginScreen';
+import LogoutButton from './components/user/LogoutButton';
+import RegistrationScreen from './components/user/RegistrationScreen';
+import NextScreen from './components/NextScreen';
 
 // Opretter en staknavigator til at håndtere navigationen mellem skærmene
 const Stack = createNativeStackNavigator();
@@ -37,9 +43,12 @@ function App() {
   }
   // Returafsnittet, der indeholder navigationscontaineren og staknavigator med alle skærme
   return (
+    <AuthProvider>
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Logout" component={LogoutButton} />
         <Stack.Screen name="AddCompany" component={AddCompanyScreen} />
         <Stack.Screen name="AllCompanies" component={AllCompaniesScreen} />
         <Stack.Screen name="CompanyDetails" component={CompanyDetailsScreen} />
@@ -47,8 +56,11 @@ function App() {
         <Stack.Screen name="Coupons" component={CouponsScreen} />
         <Stack.Screen name="Camera" component={CameraScreen} />
         <Stack.Screen name='Map' component={MapScreen}/>
+        <Stack.Screen name="Register" component={RegistrationScreen} />
+        <Stack.Screen name="NextScreen" component={NextScreen} />
       </Stack.Navigator>
     </NavigationContainer>
+    </AuthProvider>
   );
 }
 // Eksporterer App-komponenten som standard eksport for at gøre den tilgængelig for resten af applikationen
