@@ -13,7 +13,7 @@ const RegistrationScreen = () => {
     try {
       await registerUser(email, password); // Use the correct function name
       Alert.alert('Success', 'User registered successfully!');
-      navigation.navigate('NextScreen'); // Navigate to NextScreen
+      navigation.navigate('HomeScreen'); // Navigate to NextScreen
     } catch (error) {
       Alert.alert('Error', error.message);
     }

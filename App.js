@@ -20,7 +20,6 @@ import CouponsScreen from './components/coupons/CouponsScreen';
 import LoginScreen from './components/user/LoginScreen';
 import LogoutButton from './components/user/LogoutButton';
 import RegistrationScreen from './components/user/RegistrationScreen';
-import NextScreen from './components/NextScreen';
 
 // Opretter en staknavigator til at håndtere navigationen mellem skærmene
 const Stack = createNativeStackNavigator();
@@ -57,7 +56,6 @@ function App() {
         <Stack.Screen name="Camera" component={CameraScreen} />
         <Stack.Screen name='Map' component={MapScreen}/>
         <Stack.Screen name="Register" component={RegistrationScreen} />
-        <Stack.Screen name="NextScreen" component={NextScreen} />
       </Stack.Navigator>
     </NavigationContainer>
     </AuthProvider>
