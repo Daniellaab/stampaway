@@ -1,16 +1,19 @@
-// I LoginScreen.js
+// In LoginScreen.js
 import React, { useState } from 'react';
 import { View, TextInput, Button, Alert } from 'react-native';
-import AuthenticationService from '../../AuthenticationService';
+import { useAuth } from '../../AuthenticationService'; // Make sure to use the correct path
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { signInUser } = useAuth(); // Use the correct function name
 
   const handleLogin = async () => {
-    const result = await AuthenticationService.signIn(email, password);
-    if (!result.success) {
-      Alert.alert('Error', result.error);
+    try {
+      await signInUser(email, password); // Use the correct function name
+      Alert.alert('Success', 'User logged in successfully!');
+    } catch (error) {
+      Alert.alert('Error', error.message);
     }
   };
 

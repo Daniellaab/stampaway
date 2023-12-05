@@ -10,13 +10,14 @@ const HomeScreen = ({ navigation }) => {
     <View>
       {user ? (
         <View>
-          <Text>Welcome, {user.email}!</Text>
-          <Button title="Sign Out" onPress={signOutUser} />
+          <Text>Velkommen, {user.email}!</Text>
+          <Button title="Log ud" onPress={signOutUser} />
         </View>
       ) : (
         <View>
-          <Text>You are not signed in.</Text>
-          <Button title="Sign In" onPress={() => navigation.navigate('Register')} />
+          <Text>Opret en profil eller log ind!</Text>
+          <Button title="Opret profil" onPress={() => navigation.navigate('Register')} />
+          <Button title="Log ind" onPress={() => navigation.navigate('Login')} />
         </View>
       )}
     </View>
