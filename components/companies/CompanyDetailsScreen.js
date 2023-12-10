@@ -59,14 +59,14 @@ function CompanyDetails({ route, navigation }) {
       </View>
       {/* Knapper til redigering og sletning af firma */}
       <View style={styles.buttonsContainer}>
-        {/* Knappen til redigering af firmaoplysninger */}
-        <TouchableOpacity style={styles.button} onPress={handleEdit}>
-          <Text style={styles.buttonText}>Edit</Text>
-        </TouchableOpacity>
         {/* Knappen til sletning af firma */}
         <TouchableOpacity style={styles.button} onPress={confirmDelete}>
-          <Text style={styles.buttonText}>Delete</Text>
+          <Text style={styles.buttonText}>Slet</Text>
         </TouchableOpacity>
+          {/* Knappen til navigation til StampCardScreen */}
+          <TouchableOpacity style={[styles.button, { backgroundColor: '#4CAF50' }]} onPress={() => navigation.navigate('StampCard')}>
+            <Text style={styles.buttonText}>Stamp Card</Text>
+            </TouchableOpacity>
       </View>
     </View>
   );

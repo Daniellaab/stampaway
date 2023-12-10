@@ -14,6 +14,8 @@ import CreateCompanyScreen from './components/companies/CreateCompanyScreen';
 import AllCompaniesScreen from './components/companies/AllCompaniesScreen';
 import CompanyDetailsScreen from './components/companies/CompanyDetailsScreen';
 
+import StampCardScreen from './components/stampcard/StampCardScreen';
+
 import LoginScreen from './components/user/LoginScreen';
 import LogoutButton from './components/user/LogoutButton';
 import RegistrationScreen from './components/user/RegistrationScreen';
@@ -48,6 +50,7 @@ function App() {
         <Stack.Screen name='CreateCompany' component={CreateCompanyScreen}/>
         <Stack.Screen name="AllCompanies" component={AllCompaniesScreen} />
         <Stack.Screen name="CompanyDetails" component={CompanyDetailsScreen} />
+        <Stack.Screen name='StampCard' component={StampCardScreen}/>
         <Stack.Screen name="Camera" component={CameraScreen} />
         <Stack.Screen name='Map' component={MapScreen}/>
         <Stack.Screen name="Register" component={RegistrationScreen} />
