@@ -13,7 +13,7 @@ const LoginScreen = () => {
     try {
       await signInUser(email, password);
       Alert.alert('Success', 'User logged in successfully!');
-      navigation.navigate('HomeScreen'); // Navigate to NextScreen
+      navigation.navigate('Home'); // Navigate to NextScreen
     } catch (error) {
       Alert.alert('Error', error.message);
     }
