@@ -10,12 +10,9 @@ import HomeScreen from './components/HomeScreen';
 import CameraScreen from './components/CameraScreen';
 import MapScreen from './components/MapScreen';
 
-import AddCompanyScreen from './components/companies/AddCompanyScreen';
+import CreateCompanyScreen from './components/companies/CreateCompanyScreen';
 import AllCompaniesScreen from './components/companies/AllCompaniesScreen';
 import CompanyDetailsScreen from './components/companies/CompanyDetailsScreen';
-
-import CreateCouponScreen from './components/coupons/CreateCouponScreen';
-import CouponsScreen from './components/coupons/CouponsScreen';
 
 import LoginScreen from './components/user/LoginScreen';
 import LogoutButton from './components/user/LogoutButton';
@@ -48,11 +45,9 @@ function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Logout" component={LogoutButton} />
-        <Stack.Screen name="AddCompany" component={AddCompanyScreen} />
+        <Stack.Screen name='CreateCompany' component={CreateCompanyScreen}/>
         <Stack.Screen name="AllCompanies" component={AllCompaniesScreen} />
         <Stack.Screen name="CompanyDetails" component={CompanyDetailsScreen} />
-        <Stack.Screen name="CreateCoupon" component={CreateCouponScreen} />
-        <Stack.Screen name="Coupons" component={CouponsScreen} />
         <Stack.Screen name="Camera" component={CameraScreen} />
         <Stack.Screen name='Map' component={MapScreen}/>
         <Stack.Screen name="Register" component={RegistrationScreen} />

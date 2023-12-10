@@ -6,11 +6,9 @@ const HomeScreen = ({ navigation }) => {
   const { user, signOutUser } = useAuth();
 
   const menuItems = [
-    { title: 'Add Company', screen: 'AddCompany' },
+    { title: 'Create Company', screen: 'CreateCompany' },
     { title: 'All Companies', screen: 'AllCompanies' },
     { title: 'Camera', screen: 'Camera' },
-    { title: 'Create Coupon', screen: 'CreateCoupon' },
-    { title: 'Coupons', screen: 'Coupons' },
     { title: 'Map', screen: 'Map' },
   ];
 

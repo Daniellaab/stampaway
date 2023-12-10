@@ -48,6 +48,16 @@ const globalStyles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  picker: {
+    height: 50,
+    width: 150,
+    marginBottom: 20,
+  },
+  pickerTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  }
 });
 
 export default globalStyles;
