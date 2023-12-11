@@ -1,6 +1,6 @@
 // LogoutButton.js
 import React from 'react';
-import { Button, Alert } from 'react-native';
+import { Alert, Button } from 'react-native';
 import AuthenticationService from '../../AuthenticationService';
 
 const LogoutButton = () => {

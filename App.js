@@ -1,18 +1,20 @@
+// Herinde håndteres navigering og der opsættes også databasen her.
+
 // Importerer nødvendige komponenter og funktioner fra React og React Navigation
-import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getApps, initializeApp } from "firebase/app";
+import React from 'react';
 
 // Importerer de forskellige skærme fra separate filer
-import { AuthProvider, useAuth } from './AuthenticationService';
-import HomeScreen from './components/HomeScreen';
+import { AuthProvider } from './AuthenticationService';
 import CameraScreen from './components/CameraScreen';
+import HomeScreen from './components/HomeScreen';
 import MapScreen from './components/MapScreen';
 
-import CreateCompanyScreen from './components/companies/CreateCompanyScreen';
 import AllCompaniesScreen from './components/companies/AllCompaniesScreen';
 import CompanyDetailsScreen from './components/companies/CompanyDetailsScreen';
+import CreateCompanyScreen from './components/companies/CreateCompanyScreen';
 
 import StampCardScreen from './components/stampcard/StampCardScreen';
 

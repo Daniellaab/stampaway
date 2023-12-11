@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Button, Alert } from 'react-native';
-import { getDatabase, ref, onValue, update } from 'firebase/database';
+// Her håndteres stempling af stempelkort og brugen af barcode-scanner.
+
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { getDatabase, onValue, ref, update } from 'firebase/database';
+import React, { useEffect, useState } from 'react';
+import { Alert, Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 
+// Komponent til stempelkort
 const StampCardScreen = ({ route }) => {
+  // State-hooks til at håndtere antal stempler, scanning og virksomhedsinformation
   const [stamps, setStamps] = useState(0);
   const [scanned, setScanned] = useState(false);
   const [company, setCompany] = useState({});
   const [stampCardName, setStampCardName] = useState('');
   const [isScanning, setIsScanning] = useState(false);
 
+  // Effekt til at hente virksomhedsdata baseret på ruteparametre
   useEffect(() => {
     const fetchCompanyData = async () => {
       if (route.params && route.params.companyId) {
@@ -28,7 +33,7 @@ const StampCardScreen = ({ route }) => {
         });
 
         return () => {
-          // Cleanup: unsubscribe from the database listener
+          // Oprensning: afmeld lytteren fra databasen
           unsubscribe();
         };
       }
@@ -37,6 +42,7 @@ const StampCardScreen = ({ route }) => {
     fetchCompanyData();
   }, [route.params]);
 
+  // Funktion til håndtering af stempel på kort
   const handleStampCard = async () => {
     try {
       if (route.params && route.params.companyId && stamps > 0) {
@@ -44,12 +50,12 @@ const StampCardScreen = ({ route }) => {
         const db = getDatabase();
         const companyRef = ref(db, `Companies/${id}`);
   
-        // Assuming you have a function to update the stamps in your service
+        // Antager, at der findes en funktion til at opdatere antallet af stempler i din service
         await update(companyRef, { stamps: stamps - 1 });
         console.log('Stamping card successful');
   
         if (stamps === 1) {
-          // Show a reward message when 0 stamps are left
+          // Vis en belønningsmeddelelse, når der ikke er flere stempler tilbage
           Alert.alert('Tillykke!', 'Du har optjent en gratis belønning!');
         }
       } else {
@@ -60,34 +66,37 @@ const StampCardScreen = ({ route }) => {
     }
   };
 
+  // Funktion til håndtering af scannede QR-koder
   const handleBarCodeScanned = () => {
     setScanned(true);
-    // Additional logic when a QR code is scanned, e.g., show a reward message
+    // Yderligere logik ved scanning af en QR-kode, f.eks. vis en belønningsmeddelelse
   };
 
+  // Funktion til at skifte tilstanden for QR-kode scanning
   const toggleScanner = () => {
     setIsScanning((prevIsScanning) => !prevIsScanning);
     setScanned(false);
   };
 
   return (
+    // Visningslag med virksomhedsoplysninger, QR-kode og knapper til stempel og scanning
     <View style={styles.container}>
       <Text style={styles.header}>{company.name}</Text>
       <Text>{stampCardName}</Text>
       <Text>Antal stempler tilbage: {stamps}</Text>
-      {/* QR Code */}
+      {/* QR-kode */}
       <View style={styles.qrCodeContainer}>
         <QRCode value={JSON.stringify(company)} size={200} />
       </View>
-      {/* Stamp Button */}
+      {/* Stempelknap */}
       <View style={styles.centeredButtonContainer}>
         <TouchableOpacity style={styles.button} onPress={handleStampCard}>
           <Text style={styles.buttonText}>Stempl</Text>
         </TouchableOpacity>
       </View>
-      {/* Toggle Scanner Button */}
+      {/* Skift scannerknap */}
       <Text>*Knappen forneden skal bruges af virksomhederne til at scanne brugernes QR-kode.</Text>
-      <Button title={isScanning ? 'Stop Scanning' : 'Start Scanning'} onPress={toggleScanner} />
+      <Button title={isScanning ? 'Stop scanning' : 'Start scanning'} onPress={toggleScanner} />
       {/* BarCodeScanner */}
       {isScanning && (
         <BarCodeScanner
@@ -99,6 +108,7 @@ const StampCardScreen = ({ route }) => {
   );
 };
 
+// Stilarter for StampCardScreen komponenten
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -132,4 +142,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// Eksporter StampCardScreen komponenten som standard eksport
 export default StampCardScreen;

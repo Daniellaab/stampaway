@@ -1,17 +1,18 @@
-// Import necessary components from React and React Native packages
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { getDatabase, ref, remove } from 'firebase/database';
+// Her indlæses detaljer om den virksomhed som man har klikket på i listen over virksomheder.
 
-// Functional component for displaying and editing company information
+import { getDatabase, ref, remove } from 'firebase/database';
+import React, { useState } from 'react';
+import { Alert, StyleSheet, Text, TouchableOpacity, View, Platform } from 'react-native';
+
+// Funktionel komponent til visning og redigering af virksomhedsoplysninger
 function CompanyDetails({ route, navigation }) {
-  // State to hold information about the selected company
+  // State til at gemme information om den valgte virksomhed
   const [company] = useState(route.params.company[1]);
 
-  // Function to confirm deletion of the company
+  // Funktion til at bekræfte sletning af virksomheden
   const confirmDelete = () => {
     if (Platform.OS === 'ios' || Platform.OS === 'android') {
-      // Show a confirmation dialog to the user
+      // Vis en bekræftelsesdialog til brugeren
       Alert.alert('Er du sikker?', 'Vil du gerne slette denne virksomhed?', [
         { text: 'Cancel', style: 'cancel' },
         { text: 'Slet', style: 'destructive', onPress: handleDelete },
@@ -19,32 +20,32 @@ function CompanyDetails({ route, navigation }) {
     }
   };
 
-  // Function to handle the deletion of the company
+  // Funktion til at håndtere sletning af virksomheden
   const handleDelete = async () => {
     const id = route.params.company[0];
     const db = getDatabase();
     const companyRef = ref(db, `Companies/${id}`);
 
     try {
-      // Delete the company from the database
+      // Slet virksomheden fra databasen
       await remove(companyRef);
-      // Navigate back to the previous screen
+      // Naviger tilbage til den forrige skærm
       navigation.goBack();
     } catch (error) {
-      // Show an error message if the deletion fails
+      // Vis en fejlmeddelelse, hvis sletningen mislykkes
       Alert.alert(error.message);
     }
   };
 
-  // If there is no company information, display a message
+  // Hvis der ikke er nogen virksomhedsinformation, vis en besked
   if (!company) {
     return <Text>Ingen data</Text>;
   }
 
-  // Render company information with the option for deletion
+  // Vis virksomhedsoplysninger med mulighed for sletning
   return (
     <View style={styles.container}>
-      {/* Display company information in a details-container */}
+      {/* Vis virksomhedsoplysninger i en detalje-container */}
       <View style={styles.detailsContainer}>
         {Object.entries(company).map((item, index) => (
           <View style={styles.row} key={index}>
@@ -54,11 +55,11 @@ function CompanyDetails({ route, navigation }) {
         ))}
       </View>
       <View style={styles.buttonsContainer}>
-        {/* Button for deleting the company */}
+        {/* Knap til sletning af virksomheden */}
         <TouchableOpacity style={styles.button} onPress={confirmDelete}>
           <Text style={styles.buttonText}>Slet</Text>
         </TouchableOpacity>
-        {/* Button for navigating to StampCardScreen */}
+        {/* Knap til navigation til StampCardScreen */}
         <TouchableOpacity
           style={[styles.button, { backgroundColor: '#4CAF50' }]}
           onPress={() => navigation.navigate('StampCard', { companyId: route.params.company[0], companyName: route.params.company[1].name })}
@@ -70,7 +71,7 @@ function CompanyDetails({ route, navigation }) {
   );
 }
 
-// Styles for the component
+// Stilarter for komponenten
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -110,4 +111,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// Eksporter CompanyDetails komponenten som standard eksport
 export default CompanyDetails;

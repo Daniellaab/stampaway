@@ -1,11 +1,14 @@
+// Det her screen skal bruges til funktionaliteten hvor brugerne skal kunne finde virksomhederne fra platformen på kortet.
+// Det er ikke udviklet færdigt, men alle virksomhedere skal registreres med en adresse så de kan findes her.
+
 // Importerer nødvendige komponenter og biblioteker fra React Native-pakken
-import * as React from 'react';
-import { StyleSheet, Text, View, Button, SafeAreaView } from 'react-native';
 import Constants from 'expo-constants';
-import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Accuracy } from 'expo-location';
-import { useState, useEffect } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
+import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 
 // MapScreen komponenten, der viser kortet og håndterer lokationsdata og markører
 const MapScreen = ({}) => {

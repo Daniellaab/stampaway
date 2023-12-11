@@ -1,9 +1,13 @@
+// Det her screen skal bruges af virksomhederne, så når der skal skannes en kundes QR-kode så kan de hurtigt og nemt gøre det herinde.
+// På nuværende tidspunkt er der ikke blevet udviklet funktionaliteten til at skanne og registrere brugerens QR-kode.
+// Derfor bruges det her screen til at vise hvor det er tiltænkt at udvikle funktionaliteten.
+
 // Importerer nødvendige komponenter fra React, React Native og Expo-pakkerne
-import React, {Fragment, useEffect, useRef, useState} from "react";
-import {Camera} from "expo-camera";
-import {Button, Image, Linking, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
-import {StatusBar} from "expo-status-bar";
+import { StatusBar } from "expo-status-bar";
+import React, { Fragment, useEffect, useRef, useState } from "react";
+import { Button, Image, Linking, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 // Funktionel komponent for kamerafunktionaliteten på skærmen
 const CameraScreen = ({navigation}) => { 
