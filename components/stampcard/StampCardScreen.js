@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Button, Image } from 'react-native';
 import { getDatabase, ref, onValue, update } from 'firebase/database';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import QRCode from 'react-native-qrcode-svg';
 
 const StampCardScreen = ({ route }) => {
   const [stamps, setStamps] = useState(0);
@@ -70,10 +71,19 @@ const StampCardScreen = ({ route }) => {
       <Text style={styles.header}>{company.name} Stamp Card</Text>
       <Text>Stamp Card Name: {stampCardName}</Text>
       <Text>Stamps: {stamps}</Text>
-      <TouchableOpacity style={styles.button} onPress={handleStampCard}>
-        <Text style={styles.buttonText}>Stamp</Text>
-      </TouchableOpacity>
+      {/* QR Code */}
+      <View style={styles.qrCodeContainer}>
+        <QRCode value={JSON.stringify(company)} size={200} />
+      </View>
+      {/* Stamp Button */}
+      <View style={styles.centeredButtonContainer}>
+        <TouchableOpacity style={styles.button} onPress={handleStampCard}>
+          <Text style={styles.buttonText}>Stamp</Text>
+        </TouchableOpacity>
+      </View>
+      {/* Toggle Scanner Button */}
       <Button title={isScanning ? 'Stop Scanning' : 'Start Scanning'} onPress={toggleScanner} />
+      {/* BarCodeScanner */}
       {isScanning && (
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
@@ -105,6 +115,15 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  qrCodeContainer: {
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  centeredButtonContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
