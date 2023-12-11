@@ -1,17 +1,17 @@
-// Importerer nødvendige komponenter fra React og React Native-pakkerne
+// Import necessary components from React and React Native packages
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { getDatabase, ref, remove } from "firebase/database";
+import { getDatabase, ref, remove } from 'firebase/database';
 
-// Funktionel komponent for visning og redigering af firmaoplysninger
+// Functional component for displaying and editing company information
 function CompanyDetails({ route, navigation }) {
-  // Tilstand til at holde oplysninger om det valgte firma
-  const [company ] = useState(route.params.company[1]);
+  // State to hold information about the selected company
+  const [company] = useState(route.params.company[1]);
 
-  // Funktion til bekræftelse af sletning af firma
+  // Function to confirm deletion of the company
   const confirmDelete = () => {
     if (Platform.OS === 'ios' || Platform.OS === 'android') {
-      // Viser en bekræftelsesdialog til brugeren
+      // Show a confirmation dialog to the user
       Alert.alert('Are you sure?', 'Do you want to delete the company?', [
         { text: 'Cancel', style: 'cancel' },
         { text: 'Delete', style: 'destructive', onPress: handleDelete },
@@ -19,60 +19,59 @@ function CompanyDetails({ route, navigation }) {
     }
   };
 
-  // Funktion til håndtering af sletning af firma
+  // Function to handle the deletion of the company
   const handleDelete = async () => {
     const id = route.params.company[0];
     const db = getDatabase();
     const companyRef = ref(db, `Companies/${id}`);
 
     try {
-      // Sletter firmaet fra databasen
+      // Delete the company from the database
       await remove(companyRef);
-      // Navigerer tilbage til foregående skærm
+      // Navigate back to the previous screen
       navigation.goBack();
     } catch (error) {
-      // Viser en fejlbesked hvis sletningen mislykkes
+      // Show an error message if the deletion fails
       Alert.alert(error.message);
     }
   };
 
-  // Hvis der ikke er firmaoplysninger, vises en besked
+  // If there is no company information, display a message
   if (!company) {
     return <Text>No data</Text>;
   }
 
-  // Renderer firmaoplysningerne med mulighed for redigering og sletning
+  // Render company information with the option for deletion
   return (
     <View style={styles.container}>
-      {/* Viser firmaoplysningerne i et details-container */}
+      {/* Display company information in a details-container */}
       <View style={styles.detailsContainer}>
-        {
-          Object.entries(company).map((item, index) => {
-            return (
-              <View style={styles.row} key={index}>
-                <Text style={styles.label}>{item[0]}</Text>
-                <Text style={styles.value}>{item[1]}</Text>
-              </View>
-            );
-          })
-        }
+        {Object.entries(company).map((item, index) => (
+          <View style={styles.row} key={index}>
+            <Text style={styles.label}>{item[0]}</Text>
+            <Text style={styles.value}>{item[1]}</Text>
+          </View>
+        ))}
       </View>
-      {/* Knapper til redigering og sletning af firma */}
+      {/* Buttons for editing and deleting the company */}
       <View style={styles.buttonsContainer}>
-        {/* Knappen til sletning af firma */}
+        {/* Button for deleting the company */}
         <TouchableOpacity style={styles.button} onPress={confirmDelete}>
-          <Text style={styles.buttonText}>Slet</Text>
+          <Text style={styles.buttonText}>Delete</Text>
         </TouchableOpacity>
-          {/* Knappen til navigation til StampCardScreen */}
-          <TouchableOpacity style={[styles.button, { backgroundColor: '#4CAF50' }]} onPress={() => navigation.navigate('StampCard')}>
-            <Text style={styles.buttonText}>Stamp Card</Text>
-            </TouchableOpacity>
+        {/* Button for navigating to StampCardScreen */}
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: '#4CAF50' }]}
+          onPress={() => navigation.navigate('StampCard', { companyId: route.params.company[0], companyName: route.params.company[1].name })}
+        >
+          <Text style={styles.buttonText}>Stamp Card</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 }
 
-// Stilark til komponenten
+// Styles for the component
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -103,7 +102,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#007AFF',
     padding: 10,
     borderRadius: 8,
-    width: '48%', // Justerer bredden efter behov
+    width: '48%', // Adjust the width as needed
   },
   buttonText: {
     color: '#fff',

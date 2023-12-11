@@ -6,14 +6,14 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 const StampCardScreen = ({ route }) => {
   const [stamps, setStamps] = useState(0);
   const [scanned, setScanned] = useState(false);
-  const [company, setCompany] = useState('');
+  const [company, setCompany] = useState({});
   const [stampCardName, setStampCardName] = useState('');
   const [isScanning, setIsScanning] = useState(false);
 
   useEffect(() => {
     const fetchCompanyData = async () => {
-      if (route.params && route.params.company) {
-        const id = route.params.company[0];
+      if (route.params && route.params.companyId) {
+        const id = route.params.companyId;
         const db = getDatabase();
         const companyRef = ref(db, `Companies/${id}`);
 
@@ -21,7 +21,7 @@ const StampCardScreen = ({ route }) => {
           const companySnapshot = snapshot.val();
           if (companySnapshot && companySnapshot.stamps !== undefined) {
             setStamps(companySnapshot.stamps);
-            setCompany(companySnapshot.name);
+            setCompany(companySnapshot);
             setStampCardName(companySnapshot.stampCardName);
           }
         });
@@ -38,8 +38,8 @@ const StampCardScreen = ({ route }) => {
 
   const handleStampCard = async () => {
     try {
-      if (route.params && route.params.company && stamps > 0) {
-        const id = route.params.company[0];
+      if (route.params && route.params.companyId && stamps > 0) {
+        const id = route.params.companyId;
         const db = getDatabase();
         const companyRef = ref(db, `Companies/${id}`);
 
@@ -67,7 +67,7 @@ const StampCardScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>{company} Stamp Card</Text>
+      <Text style={styles.header}>{company.name} Stamp Card</Text>
       <Text>Stamp Card Name: {stampCardName}</Text>
       <Text>Stamps: {stamps}</Text>
       <TouchableOpacity style={styles.button} onPress={handleStampCard}>
