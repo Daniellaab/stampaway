@@ -6,24 +6,24 @@ const HomeScreen = ({ navigation }) => {
   const { user, signOutUser } = useAuth();
 
   const menuItems = [
-    { title: 'Create Company', screen: 'CreateCompany' },
-    { title: 'All Companies', screen: 'AllCompanies' },
-    { title: 'Camera', screen: 'Camera' },
-    { title: 'Map', screen: 'Map' },
+    { title: 'Opret virksomhed', screen: 'CreateCompany' },
+    { title: 'Alle virksomheder', screen: 'AllCompanies' },
+    { title: 'Kamera', screen: 'Camera' },
+    { title: 'Kort', screen: 'Map' },
   ];
 
   return (
     <View style={styles.container}>
       {user ? (
         <View>
-          <Text>Welcome, {user.email}!</Text>
-          <Button title="Log out" onPress={signOutUser} />
+          <Text>Velkommen, {user.email}!</Text>
+          <Button title="Log ud" onPress={signOutUser} />
         </View>
       ) : (
         <View>
-          <Text>Create a profile or log in!</Text>
-          <Button title="Create Profile" onPress={() => navigation.navigate('Register')} />
-          <Button title="Log in" onPress={() => navigation.navigate('Login')} />
+          <Text>Opret en profil eller log ind!</Text>
+          <Button title="Opret profil" onPress={() => navigation.navigate('Register')} />
+          <Button title="Log ind" onPress={() => navigation.navigate('Login')} />
         </View>
       )}
 

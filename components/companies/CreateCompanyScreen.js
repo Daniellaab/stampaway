@@ -45,36 +45,37 @@ const CreateCompanyScreen = ({ navigation }) => {
 
   return (
     <View style={globalStyles.container}>
+      <Text style={globalStyles.title}>Opret en virksomhed med et tilhørende stempelkort:</Text>
       <TextInput
         style={globalStyles.input}
-        placeholder="Company Name"
+        placeholder="Virksomhedsnavn"
         value={companyName}
         onChangeText={setCompanyName}
       />
       <TextInput
         style={globalStyles.input}
-        placeholder="Company Description"
+        placeholder="Beskrivelse"
         value={companyDescription}
         onChangeText={setCompanyDescription}
       />
       <TextInput
         style={globalStyles.input}
-        placeholder="Stamp Card Name"
+        placeholder="Navn på stempelkort"
         value={stampCardName}
         onChangeText={setStampCardName}
       />
-      <Button title="Add Company" onPress={handleAddCompany} />
-      <Text style={globalStyles.pickerTitle}>Choose Stamp Card Options:</Text>
+      <Text style={globalStyles.pickerTitle}>Vælg antal stempler:</Text>
       <Picker
         selectedValue={stamps}
         onValueChange={(itemValue, itemIndex) => setStamps(itemValue)}
         style={globalStyles.picker}
         itemStyle={{ justifyContent: 'flex-start' }} // Align text to the left
       >
-        {[1, 2, 3, 4, 5].map((value) => (
-          <Picker.Item key={value} label={`${value} Stamps`} value={value} />
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
+          <Picker.Item key={value} label={`${value}`} value={value} />
         ))}
       </Picker>
+      <Button title="Tilføj virksomhed" onPress={handleAddCompany} />
     </View>
   );
 };

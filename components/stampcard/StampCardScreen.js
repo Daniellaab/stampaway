@@ -46,7 +46,6 @@ const StampCardScreen = ({ route }) => {
 
         // Assuming you have a function to update the stamps in your service
         await update(companyRef, { stamps: stamps - 1 });
-        setStamps((prevStamps) => prevStamps - 1);
         console.log('Stamping card successful');
       } else {
         console.log('No stamps available to stamp');
@@ -68,9 +67,9 @@ const StampCardScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>{company.name} Stamp Card</Text>
-      <Text>Stamp Card Name: {stampCardName}</Text>
-      <Text>Stamps: {stamps}</Text>
+      <Text style={styles.header}>{company.name}</Text>
+      <Text>{stampCardName}</Text>
+      <Text>Antal stempler tilbage: {stamps}</Text>
       {/* QR Code */}
       <View style={styles.qrCodeContainer}>
         <QRCode value={JSON.stringify(company)} size={200} />

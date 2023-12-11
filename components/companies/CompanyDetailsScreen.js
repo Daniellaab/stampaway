@@ -12,9 +12,9 @@ function CompanyDetails({ route, navigation }) {
   const confirmDelete = () => {
     if (Platform.OS === 'ios' || Platform.OS === 'android') {
       // Show a confirmation dialog to the user
-      Alert.alert('Are you sure?', 'Do you want to delete the company?', [
+      Alert.alert('Er du sikker?', 'Vil du gerne slette denne virksomhed?', [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Delete', style: 'destructive', onPress: handleDelete },
+        { text: 'Slet', style: 'destructive', onPress: handleDelete },
       ]);
     }
   };
@@ -38,7 +38,7 @@ function CompanyDetails({ route, navigation }) {
 
   // If there is no company information, display a message
   if (!company) {
-    return <Text>No data</Text>;
+    return <Text>Ingen data</Text>;
   }
 
   // Render company information with the option for deletion
@@ -53,18 +53,17 @@ function CompanyDetails({ route, navigation }) {
           </View>
         ))}
       </View>
-      {/* Buttons for editing and deleting the company */}
       <View style={styles.buttonsContainer}>
         {/* Button for deleting the company */}
         <TouchableOpacity style={styles.button} onPress={confirmDelete}>
-          <Text style={styles.buttonText}>Delete</Text>
+          <Text style={styles.buttonText}>Slet</Text>
         </TouchableOpacity>
         {/* Button for navigating to StampCardScreen */}
         <TouchableOpacity
           style={[styles.button, { backgroundColor: '#4CAF50' }]}
           onPress={() => navigation.navigate('StampCard', { companyId: route.params.company[0], companyName: route.params.company[1].name })}
         >
-          <Text style={styles.buttonText}>Stamp Card</Text>
+          <Text style={styles.buttonText}>Stempelkort</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#007AFF',
     padding: 10,
     borderRadius: 8,
-    width: '48%', // Adjust the width as needed
+    width: '48%',
   },
   buttonText: {
     color: '#fff',
