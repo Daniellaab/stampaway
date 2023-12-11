@@ -77,7 +77,7 @@ const StampCardScreen = ({ route }) => {
       {/* Stamp Button */}
       <View style={styles.centeredButtonContainer}>
         <TouchableOpacity style={styles.button} onPress={handleStampCard}>
-          <Text style={styles.buttonText}>Stamp</Text>
+          <Text style={styles.buttonText}>Stempl</Text>
         </TouchableOpacity>
       </View>
       {/* Toggle Scanner Button */}

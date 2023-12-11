@@ -1,6 +1,5 @@
-// CreateCompanyScreen.js
 import React, { useState } from 'react';
-import { View, TextInput, Button, Alert, Text } from 'react-native';
+import { View, TextInput, TouchableOpacity, Alert, Text } from 'react-native';
 import { getDatabase, ref, push, child, set } from 'firebase/database';
 import { Picker } from '@react-native-picker/picker';
 import globalStyles from '../../globalStyles/GlobalStyles';
@@ -75,7 +74,10 @@ const CreateCompanyScreen = ({ navigation }) => {
           <Picker.Item key={value} label={`${value}`} value={value} />
         ))}
       </Picker>
-      <Button title="Tilføj virksomhed" onPress={handleAddCompany} />
+      <View style={{ height: 130 }} />
+      <TouchableOpacity style={globalStyles.button} onPress={handleAddCompany}>
+        <Text style={globalStyles.buttonText}>Tilføj virksomhed</Text>
+      </TouchableOpacity>
     </View>
   );
 };
