@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Button, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Button, Alert } from 'react-native';
 import { getDatabase, ref, onValue, update } from 'firebase/database';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import QRCode from 'react-native-qrcode-svg';
@@ -43,10 +43,15 @@ const StampCardScreen = ({ route }) => {
         const id = route.params.companyId;
         const db = getDatabase();
         const companyRef = ref(db, `Companies/${id}`);
-
+  
         // Assuming you have a function to update the stamps in your service
         await update(companyRef, { stamps: stamps - 1 });
         console.log('Stamping card successful');
+  
+        if (stamps === 1) {
+          // Show a reward message when 0 stamps are left
+          Alert.alert('Tillykke!', 'Du har optjent en gratis belønning!');
+        }
       } else {
         console.log('No stamps available to stamp');
       }
@@ -81,6 +86,7 @@ const StampCardScreen = ({ route }) => {
         </TouchableOpacity>
       </View>
       {/* Toggle Scanner Button */}
+      <Text>*Knappen forneden skal bruges af virksomhederne til at scanne brugernes QR-kode.</Text>
       <Button title={isScanning ? 'Stop Scanning' : 'Start Scanning'} onPress={toggleScanner} />
       {/* BarCodeScanner */}
       {isScanning && (
